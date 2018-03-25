@@ -1,3 +1,8 @@
+***Run Project Locally***
+```
+./gradlew bootRun
+```
+
 ***Building Security System***
 You are going to build a system that represents a building with security gates and a guards.
 
