@@ -39,11 +39,9 @@ public class GuardService {
 
     synchronized private void patrollingJob(Guard guard, Collection<Gate> gates) {
         securityLoggingService.logStartPatrolling(guard);
-        Iterator<Gate> it = gates.iterator();
         if (Objects.equals(guard.getStartingPosition(), Guard.StartingPosition.BOTTOM)
                 && Objects.equals(guard.getGatesAllowed(), Guard.GatesAllowed.EVEN)) {
-            while (it.hasNext()) {
-                Gate gate = it.next();
+            for (Gate gate : gates) {
                 Gate.State oldState = gate.getState();
                 if (gate.getId() % 2 == 0 && Objects.equals(gate.getState(), Gate.State.OPEN)) {
                     gate.setState(Gate.State.CLOSED);
@@ -54,6 +52,7 @@ public class GuardService {
                 && Objects.equals(guard.getDirection(), Guard.Direction.BOTTOM_TO_TOP)) {
             int randomPosition = new Random().nextInt(gates.size());
             int index = 0;
+            Iterator<Gate> it = gates.iterator();
             while (it.hasNext()) {
                 Gate gate = it.next();
                 Gate.State oldState = gate.getState();
@@ -64,6 +63,7 @@ public class GuardService {
                 }
                 index = index + 1;
             }
+            it = gates.iterator();
             index = 0;
             while (it.hasNext()) {
                 Gate gate = it.next();
@@ -80,6 +80,7 @@ public class GuardService {
             for (int i = 0; i < guard.getGatesAmount(); i++) {
                 randomIntegers.add(new Random().nextInt(gates.size()));
             }
+            Iterator<Gate> it = gates.iterator();
             int index = 0;
             while (it.hasNext()) {
                 Gate gate = it.next();
